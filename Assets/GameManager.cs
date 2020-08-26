@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
 
     private bool gameEnded = false;
+    public float restartDelay;
 
     public bool gameHasEnded()
     {
@@ -19,7 +21,15 @@ public class GameManager : MonoBehaviour
         {
             gameEnded = true;
             Debug.Log("Game Over");
+            Invoke("Restart", restartDelay);
+            
+            //Restart();
         }
+    }
+
+    void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
 
