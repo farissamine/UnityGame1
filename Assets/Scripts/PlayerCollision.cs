@@ -6,6 +6,21 @@ public class PlayerCollision : MonoBehaviour
 {
 
     public PlayerMovement movement;
+    GameManager gm;
+
+    void Start()
+    {
+        gm = FindObjectOfType<GameManager>();
+
+        if (gm)
+        {
+            Debug.Log("GameManager object found " + gm.name);
+        }
+        else
+        {
+            Debug.Log("No GameManager Object found");
+        }
+    }
 
     void OnCollisionEnter( Collision collisionInfo)
     {
@@ -25,6 +40,8 @@ public class PlayerCollision : MonoBehaviour
             Debug.Log("We hit an obstacle");
 
             movement.enabled = false;
+            gm.EndGame();
+            
         }
     }   
 }

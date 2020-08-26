@@ -17,14 +17,19 @@ public class PlayerMovement : MonoBehaviour
     private bool moveLeft = false;
     private bool jumpAvailable = true;
     private bool jumping = false;
+    private int numJumps = 2;
+    private int jumpHolder = 2;
 
     ForceMode fm = ForceMode.VelocityChange;
+
+    GameManager gm;
 
     // Start is called before the first frame update
     void Start()
     {
         //Debug.Log("Start Occurred");
         //rb.AddForce(0,200, 500);
+        gm = FindObjectOfType<GameManager>();
     }
 
 
@@ -74,9 +79,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKeyDown("space"))
         {
-            jumping = true;
-           
-            
+            jumping = true; 
         }
     }
 
@@ -104,16 +107,29 @@ public class PlayerMovement : MonoBehaviour
         {
             if (jumpAvailable) { jump(); }
         }
-        
+        if (rb.position.y < -3f)
+        {
+            gm.EndGame();
+        }
     }
 
 
     public bool hasJump(){return jumpAvailable;}
-    public void setJumpAvailable(bool j) { jumpAvailable = j; }
+    public void setJumpAvailable(bool j) {
+        jumpAvailable = j;
+        //jumpHolder = 2;
+    }
 
     private void jump() {
         rb.AddForce(0, jumpForce, 0);
-        jumping = false;
         jumpAvailable = false;
+        jumping = false;
+        /*
+        jumpHolder -= 1;
+        if(jumpHolder == 0)
+        {
+            jumpAvailable = false;
+        }*/
+        
     }
 }
