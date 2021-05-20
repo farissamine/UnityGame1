@@ -1,2 +1,2 @@
 # UnityGame1
- My frist game with unity
+ My first game with unity
